@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '../public/stylesheet.css';
-import AddEntry from './components/AddEntry.jsx';
+
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import Main from './Main/Main.jsx';
+import Login from './Login/Login.jsx';
 
 
 class App extends React.Component {
@@ -16,9 +20,12 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <h1>Blog</h1>
-        <h3>minimum viable product</h3>
-        <AddEntry />
+        <BrowserRouter>
+          <Switch>
+            <Route path='/' component={ Main } />
+            <Route path='/login' component={ Login } />
+          </Switch>
+        </BrowserRouter>
       </div>
     )
   }
