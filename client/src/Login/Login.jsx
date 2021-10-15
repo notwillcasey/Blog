@@ -11,14 +11,18 @@ class Login extends React.Component {
     }
   }
 
+  onLogin () {
+
+  }
+
   render () {
     return (
-      <div>
-        <h1>login</h1>
+      <div id='login' >
+        <h4>please login to continue</h4>
         <form>
-          <input type='text' id='username' placeholder='username' />
-          <input type='text' id='password' placeholder='password' />
-          <input type='submit' id='loginSubmit' />
+          <input className='loginForm' type='text' id='username' placeholder='username' /><br />
+          <input className='loginForm' type='text' id='password' placeholder='password' /><br />
+          <input className='loginForm' type='submit' id='loginSubmit' />
         </form>
       </div>
     )

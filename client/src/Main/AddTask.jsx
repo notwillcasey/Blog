@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class AddTask extends React.Component {
 
@@ -8,8 +9,9 @@ class AddTask extends React.Component {
   }
 
    submitNewTask(e) {
-     e.preventDefault();
-    console.log('submitted yall', e.target)
+    e.preventDefault();
+    this.props.addTask(e);
+    e.target.reset();
   }
 
   render() {
@@ -18,8 +20,8 @@ class AddTask extends React.Component {
         <div>
         <form id='addTaskForm' onSubmit={this.submitNewTask}>
           <input className='addTaskForm' id='taskDate' type='date' />
-          <input className='addTaskForm' id='taskCategory' type='text' placeholder='add your category here' />
-          <input className='addTaskForm' id='taskBody' type='text' placeholder='add your task here' form='addNewTask' />
+          {/* <input className='addTaskForm' id='taskCategory' type='text' placeholder='add your category here' /> */}
+          <input className='addTaskForm' id='taskBody' type='text' placeholder='add your task here' />
           <input className='addTaskForm' id='submitTask' type='submit' value='add task' />
         </form>
         </div>

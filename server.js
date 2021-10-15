@@ -1,18 +1,62 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const PORT = 2000;
 
-const { Pool } = require('pg');
+const db = require('./database.js');
 
-const pool = new Pool({
-  user: 'client',
-  database: 'todo',
-  password: 'client',
-  port: 5432
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static('./client/public'));
+
+app.get('/api/getTask', (req, res) => {
+
+  db.getTasks(req.query.user)
+    .then((response) => {
+      res.status(200).send(response.rows)
+    })
+    .catch((err) => {
+      if (err.message.includes('does not exist')) {
+        db.handleNewUser(req.query.user)
+          .then((response) => {
+            res.status(200).send(response.rows)
+          })
+          .catch((err) => {
+            res.status(400).send('ERROR creating new user')
+          })
+      }  else {
+        res.status(400).send('DB connection issue, try again later')
+      }
+    })
 })
 
-app.use(express.static('./client/public'));
+app.post('/api/addTask', (req, res) => {
+  db.addTask(req.body)
+    .then((response) => {
+      return db.getTasks(req.body.user)
+    })
+    .then((response) => {
+      res.status(200).send(response.rows)
+    })
+    .catch((err) => {
+      res.status(400).send('error adding to DB')
+    })
+})
+
+app.post('/api/deleteTask', (req, res) => {
+  db.deleteTask(req.body)
+    .then((response) => {
+      return db.getTasks(req.body.user)
+    })
+    .then((response) => {
+      res.status(200).send(response.rows)
+    })
+    .catch((err) => {
+      res.status(400).send('error adding to DB')
+    })
+})
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('client', 'public', 'index.html'));
