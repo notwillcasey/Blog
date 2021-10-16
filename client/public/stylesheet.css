@@ -9,6 +9,11 @@ input {
   padding: 0.25em;
 }
 
+button {
+  height: 2em;
+  padding: 0.25em;
+}
+
 #siteTitle {
   display: block;
   text-align: center;
@@ -19,7 +24,30 @@ input {
   font-style: italic;
 }
 
+.navBar {
+  margin-right: 1em;
+  margin-bottom: 2em;
+  font-size: 1em;
+  font-style: normal;
+  text-decoration: none;
+  color: darkslategrey;
+}
+
+button.navBar  {
+  border: none;
+  background-color: white;
+}
+
+button.navBar:hover {
+  cursor: pointer;
+}
+
 #loginContainer {
+  display: block;
+  text-align: center;
+}
+
+.headerContainer {
   display: block;
   text-align: center;
 }
@@ -40,12 +68,14 @@ input {
   width: auto;
   background-color: rgba(230, 230, 230, 0.75);
   border-radius: 0.25em;
-  margin: 0.5em;
+  margin: 0.75em;
   padding: 0.5em;
 }
 
 .task:hover {
-  background-color: rgba(206, 206, 206, 0.918);
+  /* background-color: rgba(206, 206, 206, 0.918); */
+  box-shadow: 0 0 11px rgba(47, 79, 79, 0.521);
+  cursor: pointer;
 }
 
 .loginForm {
@@ -100,7 +130,15 @@ input {
   height: 2.75em;
 }
 
+#submitTask:hover {
+  cursor: pointer;
+}
+
 .container {
   display: block;
   text-align: center;
+}
+
+.pointer:hover {
+  cursor: pointer;
 }

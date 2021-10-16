@@ -7,11 +7,17 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+    }
     this.submitLogin = this.submitLogin.bind(this);
+    this.signUpUser = this.signUpUser.bind(this);
   }
 
   submitLogin (e) {
     e.preventDefault();
+    if (!e.target.username.value || !e.target.password.value) {
+      return
+    }
     const url = window.location.href;
     const body = {
       user: e.target.username.value,
@@ -33,6 +39,10 @@ class Login extends React.Component {
       })
   }
 
+  signUpUser () {
+    this.props.newUser();
+  }
+
   render () {
     return (
       <div id='loginContainer' >
@@ -40,8 +50,9 @@ class Login extends React.Component {
         <form onSubmit={this.submitLogin} >
           <input className='loginForm' type='text' id='username' placeholder='username' /><br />
           <input className='loginForm' type='password' id='password' placeholder='password' /><br />
-          <input className='loginForm' type='submit' id='loginSubmit' />
+          <input className='loginForm' value='Login' type='submit' id='loginSubmit' /><br />
         </form>
+        <button onClick={ this.signUpUser }>New User? Click Here!</button>
       </div>
     )
   }

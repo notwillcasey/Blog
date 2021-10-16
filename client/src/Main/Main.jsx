@@ -85,7 +85,7 @@ class Main extends React.Component {
   render () {
     return (
       <div>
-        <h4 id='siteTitle'>Welcome back, { this.props.currentUser }!</h4>
+        {/* <h4 id='siteTitle'>Welcome back, { this.props.currentUser }!</h4> */}
         <AddTask addTask={this.addTask} />
         <TaskList tasks={this.state.tasks} delete={this.deleteTask} />
       </div>

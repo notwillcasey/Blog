@@ -68,7 +68,6 @@ app.post('/auth/addUser', (req, res) => {
 })
 
 app.post('/auth/checkUser', (req, res) => {
-  console.log(req.body)
   db.checkAuth(req.body)
     .then((response) => {
       console.log('check res', response.rows[0])
