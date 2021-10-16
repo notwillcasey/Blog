@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 app.use(express.static('./client/public'));
 
 app.get('/api/getTask', (req, res) => {
-
   db.getTasks(req.query.user)
     .then((response) => {
       res.status(200).send(response.rows)
@@ -55,6 +54,29 @@ app.post('/api/deleteTask', (req, res) => {
     })
     .catch((err) => {
       res.status(400).send('error adding to DB')
+    })
+})
+
+app.post('/auth/addUser', (req, res) => {
+  db.addUser(req.body)
+    .then((response) => {
+      res.status(201).send('user created')
+    })
+    .catch((err) => {
+      res.status(400).send('unable to create user')
+    })
+})
+
+app.post('/auth/checkUser', (req, res) => {
+  console.log(req.body)
+  db.checkAuth(req.body)
+    .then((response) => {
+      console.log('check res', response.rows[0])
+      res.status(201).send(response.rows[0])
+    })
+    .catch((err) => {
+      console.log('check error', err);
+      res.status(400).send('unable to create user')
     })
 })
 

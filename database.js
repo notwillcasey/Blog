@@ -25,7 +25,7 @@ module.exports.createTable = (user) => {
 }
 
 module.exports.handleNewUser = (user) => {
-  db.createTable(user)
+  module.exports.createTable(user)
     .then((response) => {
       return client.query(`SELECT * FROM ${user}`)
     })
@@ -43,9 +43,17 @@ module.exports.addTask = (data) => {
 }
 
 module.exports.deleteTask = (data) => {
-  return client.query(`DELETE FROM ${data.user} WHERE id=${data.id}`)
+  return client.query(`DELETE FROM ${data.user} WHERE id=${data.id};`)
 }
 
-module.exports.updateTask = (user, id, date, task) => {
-
+module.exports.addUser = (data) => {
+  return client.query(`INSERT INTO authorizedUsers (username, hashedPassword) VALUES ('${data.user}', '${data.hashword}');`)
 }
+
+module.exports.checkAuth = (data) => {
+  return client.query(`SELECT * FROM authorizedUsers WHERE username='${data.user}' AND hashedPassword='${data.hashword}';`)
+}
+
+// module.exports.updateTask = (user, id, date, task) => {
+
+// }

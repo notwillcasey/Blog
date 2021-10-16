@@ -9,7 +9,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: 'test',
+      user: this.props.currentUser,
       tasks: []
     }
     this.getTasks = this.getTasks.bind(this);
@@ -23,7 +23,7 @@ class Main extends React.Component {
 
   getTasks () {
     const url = window.location.href
-    axios.get(`${url}api/getTask?user=${this.state.user}`)
+    axios.get(`${url}api/getTask?user=${this.props.currentUser}`)
       .then((response) => {
         response.data.sort((a, b) => {
           return new Date(a.date) - new Date(b.date);
@@ -38,7 +38,7 @@ class Main extends React.Component {
   addTask (e) {
     const url = window.location.href;
     const body = {
-      user: 'test',
+      user: this.props.currentUser,
       date: e.target.taskDate.value,
       task: e.target.taskBody.value
     }
@@ -62,7 +62,7 @@ class Main extends React.Component {
   deleteTask (e) {
     const url = window.location.href;
     const body = {
-      user: 'test',
+      user: this.props.currentUser,
       id: e.target.id
     }
     const options =  {
@@ -85,6 +85,7 @@ class Main extends React.Component {
   render () {
     return (
       <div>
+        <h4 id='siteTitle'>Welcome back, { this.props.currentUser }!</h4>
         <AddTask addTask={this.addTask} />
         <TaskList tasks={this.state.tasks} delete={this.deleteTask} />
       </div>
