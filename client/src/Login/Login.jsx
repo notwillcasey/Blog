@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-
 class Login extends React.Component {
 
   constructor(props) {
@@ -30,11 +29,9 @@ class Login extends React.Component {
     }
     axios.post(`${url}auth/checkUser`, body, options)
       .then((response) => {
-        console.log(response.data)
         this.props.authorizeUser(response.data);
       })
       .catch((err) => {
-        e.target.password.reset();
         alert('incorrect username/password combination')
       })
   }

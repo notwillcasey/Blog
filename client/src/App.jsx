@@ -43,7 +43,7 @@ class App extends React.Component {
   logoutUser () {
     window.sessionStorage.removeItem('token')
     window.sessionStorage.removeItem('user')
-    this.setState({ token: null, user: null })
+    this.setState({ token: null, user: null, newUser: false })
   }
 
   newUser () {

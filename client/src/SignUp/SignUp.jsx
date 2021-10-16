@@ -7,8 +7,6 @@ class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-    }
     this.submitSignUp = this.submitSignUp.bind(this);
   }
 
@@ -29,11 +27,9 @@ class SignUp extends React.Component {
     }
     axios.post(`${url}auth/addUser`, body, options)
       .then((response) => {
-        console.log(response.data)
         this.props.authorizeUser(response.data);
       })
       .catch((err) => {
-        e.target.password.reset();
         alert('incorrect username/password combination')
       })
   }

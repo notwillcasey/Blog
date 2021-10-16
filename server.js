@@ -4,6 +4,9 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const PORT = 2000;
+const crypto = require('crypto');
+const secretKey = 'testingHash'
+
 
 const db = require('./database.js');
 
@@ -58,9 +61,25 @@ app.post('/api/deleteTask', (req, res) => {
 })
 
 app.post('/auth/addUser', (req, res) => {
-  db.addUser(req.body)
+  const hashedPass = crypto.createHmac('sha256', req.body.hashword)
+                           .update(secretKey)
+                           .digest('hex')
+
+  const userInfo = {
+  user: req.body.user,
+  hashword: hashedPass
+  }
+  db.addUser(userInfo)
     .then((response) => {
-      res.status(201).send('user created')
+      // res.status(201).send('user created')
+      db.checkAuth(userInfo)
+        .then((response) => {
+          res.status(201).send(response.rows[0])
+        })
+        .catch((err) => {
+          console.log('check error', err);
+          res.status(400).send('unable to create user')
+        })
     })
     .catch((err) => {
       res.status(400).send('unable to create user')
@@ -68,9 +87,17 @@ app.post('/auth/addUser', (req, res) => {
 })
 
 app.post('/auth/checkUser', (req, res) => {
-  db.checkAuth(req.body)
+  const hashedPass = crypto.createHmac('sha256', req.body.hashword)
+                           .update(secretKey)
+                           .digest('hex')
+
+  const userInfo = {
+    user: req.body.user,
+    hashword: hashedPass
+  }
+
+  db.checkAuth(userInfo)
     .then((response) => {
-      console.log('check res', response.rows[0])
       res.status(201).send(response.rows[0])
     })
     .catch((err) => {

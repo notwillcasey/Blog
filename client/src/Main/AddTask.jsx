@@ -20,9 +20,8 @@ class AddTask extends React.Component {
         <div>
         <form id='addTaskForm' onSubmit={this.submitNewTask}>
           <input className='addTaskForm' id='taskDate' type='date' />
-          {/* <input className='addTaskForm' id='taskCategory' type='text' placeholder='add your category here' /> */}
           <input className='addTaskForm' id='taskBody' type='text' placeholder='add your task here' />
-          <input className='addTaskForm' id='submitTask' type='submit' value='add task' />
+          <input className='addTaskForm' id='submitTask' type='submit' value='Add Task' />
         </form>
         </div>
       </div>

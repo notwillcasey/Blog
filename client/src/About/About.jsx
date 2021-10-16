@@ -23,7 +23,6 @@ class About extends React.Component {
     return (
       <div id='container' >
         <button className='pointer' onClick={this.getData}>Where above the world is the ISS?</button>
-        {/* <div>{JSON.stringify(this.state.data)}</div> */}
         <div>{ !this.state.data ? '' : JSON.stringify(this.state.data) }</div>
       </div>
     )
